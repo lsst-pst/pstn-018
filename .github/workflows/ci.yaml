@@ -29,6 +29,8 @@ jobs:
           password: ${{ secrets.DOCKERHUB_SQREREADONLY_TOKEN }}
 
       - name: TeX build
+        env:
+          TEXMFHOME: "./lsst-texmf/texmf"
         run: |
           docker run --rm -v `pwd`:/workspace -w /workspace lsstsqre/lsst-texmf:latest sh -c 'make'
 
