@@ -1,222 +1,71 @@
-
-
-\section{Initial Outline}
-
-This section is pre-pended to the original document to provide an intial outline for this paper.
-The outline appears on the next page to ease readability.  Given the current flux, the usage of NCSA/LDF,
-should be taken with a grain of salt.  Feedback, suggestions, comments, and criticisms are welcome.\\
-\clearpage
-
-The Data Facility (formerly the LDF)
-\begin{itemize}
-    \item Introduction
-    \item Data Movement, Storage, and Management Resources
-    \begin{itemize}
-        \item Long-Haul Networks
-        \item Data Backbone
-        \begin{itemize}
-            \item Central File Store (Base Data Center and LDF)
-            \item High and Low Latency Storage 
-            \item Large File Annex (LFA)
-            \item Engineering/Facilities Database (EFD)
-        \end{itemize}
-        \item Disaster Recover
-    \end{itemize}
-    \item Software Environments
-    \begin{itemize}
-        \item Identity Management and Security at LDF
-        \item Middleware: The Butler
-        \item Prompt Processing Service
-        \item Batch Processing Service (Condor)
-    \end{itemize}
-    \item Computation Resources
-    \begin{itemize}
-        \item Commissioning Cluster
-        \item NCSA Camera Teststand and Network Emulator
-        \item NCSA Development and Production Nodes (eg. lsst-dev01 and Slurm)
-        \item NCSA Kubernetes Commons (dev, test, stable)
-        \item Federated Computation Facilities (NCSA?,IN2P3,?)
-    \end{itemize}
-    \item Data Access Center(s) 
-    \begin{itemize}
-        \item Data Access Center Infrastructure
-        \item LSST Science Platform
-        \begin{itemize}
-            \item Kubernetes Infrastructure
-            \item qServ Infrastructure
-            \item Firefly and Portal Infrastructure
-        \end{itemize}
-        \item Bulk Data Transport
-    \end{itemize}
-\end{itemize}
-
-\clearpage
-
-
-
 \section{Introduction}
 
-{\bf Eventually, please replace all of the remaining text with your paper text.}
-\vskip 0.in
+The Data Facilities support Rubin Data Management by providing the underlying infrastructure used for productions and...
 
+(for the layperson, what are we trying to do)
+(data rights, security requirements)
 
-The LSST Construction Project team needs to document the as-built hardware and software
-(see LSE-79 and LSE-390 for details). Although this activity will likely continue well into the operations phase, the majority 
-of anticipated documents will be necessary to enable efficient and robust early science with the LSST 
-facility and thus must be available, at least in a draft form, by the first data release. 
+\section{Data Storage}
+        \subsection{Identity Management and Security}
+	\subsection{Archives}
+	    \subsubsection{Images}
+            \subsubsection{Engineering/Facilities Database (EFD)}
+	    \subsubsection{Large File Annex (LFA)}
+	    \subsubsection{Summit Database}
+	    \subsubsection{Alert Production Products}
+	    \subsubsection{Prompt Products Database}
+	    \subsubsection{Data Release Products (includes ConsDB snapshot)}
+	\subsection{Storage Types}
+	    \subsubsection{POSIX}
+	    \subsubsection{S3}
+	    \subsubsection{WebDAV}
+	    \subsubsection{Tape}
+	\subsection{Databases}
+	    \subsubsection{SQL}
+	    \subsubsection{InfluxDB}
+\section{Data Movement and Management}
+        \subsection{Long-Haul Networks}
+	    \subsubsection{Summit to USDF}
+	    \subsubsection{USDF to Europe}
+        \subsection{Rucio and Butler Integration}
+	\subsection{s3daemon}
+	\subsection{Disaster Recovery}
+\section{Multi-Site Processing}
+	\subsection{CVMFS Software Distribution}
+	\subsection{Embargo and Unembargo}
+        \subsection{Processing Middleware: The Butler and BPS}
+	\subsection{Campaign Management}
+	(implications of facility setup on CM)
+\section{Monitoring}
+	\subsection{Compute}
+	(utilization, memory, etc.)
+	\subsection{Networking}
+	(bandwidth, latency, errors/drops, etc.)
+	\subsection{Storage}
+	(size, bandwidth, quotas, etc.)
+	\subsection{Applications and Service Logs}
+\section{Developer Resources}
+	\subsection{USDF RSP}
+	\subsection{Interactive Nodes}
+	\subsection{Build and Test System}
+\section{Data Access Center(s)}
+	\subsection{US DAC and Hybrid Model}
+	\subsection{Chilean DAC}
+	\subsection{IDACs}
+\section{Management and Coordination for Operations}
+	\subsection{Planning}
+	(sizing models, etc.)
+	\subsection{Communications Mechanisms}
+	\subsection{Incident Response}
+\section{Facility Specifics}
+	\subsection{Summit Data Facility}
+	(instantiation of the rest here)
+            \subsubsection{Commissioning Cluster}
+            \subsubsection{Teststands}
+	\subsection{USDF}
+	\subsection{French Data Facility}
+	\subsection{UK Data Facility}
+	    \subsubsection{Lancaster}
+	    \subsubsection{Rutherford Appleton Lab}
 
-As a first step, we are now assembling teams that will be in charge of delivering these documents.
-An initial paper list collated by subsystem leaders includes about 40 papers that will be submitted 
-to relevant professional journals. Therefore, this deliverable represents a major undertaking
-and we need to start early. In addition, the commissioning period will be shorter than anticipated 
-due to various delays in construction  and thus the time to complete these papers will be
-shorter, too. Although most of these papers cannot be finished before the end of construction 
-because they will require analysis of LSST commissioning data, we can significantly mitigate
-the risk that they will never be finished by starting early. The early start will also help 
-mitigate another source of stress for the team during the busy commissioning phase. 
-
- 
-\section{Initial Plan} 
-
-The subsystem leaders have assembled an initial list of papers, listed in Appendix. 
-It is likely that this list will evolve with time. 
-Each paper has an editor assigned to it. Each editor is meant to be a team leader
-who will be initially responsible for the completion of the assigned paper (or perhaps 
-until somone else from the team assumes this leadership role). The editor is not 
-necessarily the team member who will do most of the required work, or who will 
-eventually become the first author. Both issues will be handled by on an individual team basis. 
-
-\subsection{The timeline} 
-
-We would like to have all the sections that do not depend on commissioning data 
-written and reviewed by February 2021. If we accomplish this goal, we will both
-have easier time completing these papers, and the team will be less stressed during
-the commissioning phase. 
-
-Our initial timeline is as follows (the further into the future, the less certain it is): 
-\begin{enumerate} 
-\item 
-Subsystem leads assemble the initial list of papers (DONE)
-\item
-Setup latex templates and email exploders (lsst-constrpapers) (DONE)
-\item
-Schedule the first telecon to discuss task, overall plan and timeline (Oct 2019).
-\item 
-Delivery of paper outlines and the second telecon (Jan 2020). Each paper
-outline should at least contain the list of all sections, their lead authors, and
-a few sentences about the section scope. Overachievers can add a list of figures etc.
-for extra credit. 
-\item
-First rough draft of sections that can be written without having the LSST commissioning
-data and the third telecon (June 2020). These drafts should at least include subsection
-structure, lists of planned tables, figures, rough text,  and identification of any impediments 
-to make the Oct. deadline for drafts ready for review (so that we can replan if need be). 
-\item 
-Sections that can be written without having the data ready for an internal project review and
-the fourth telecon (Nov 2020). 
-\item
-Reviews available and the fifth telecon (Feb 2021)
-\item
-Implementation of the reviewers' comments (from Feb 2021 until first light) 
-\item 
-Final drafts, including sections that depend on LSST data, available for
-review and the sixth telecon (Aug 2022)
-\item
-Implementation of the reviewers' comments (from Aug 2021 until the start of operations, 
-planned for Oct 3, 2022).  Proceeding with submissions, details TBD...
-\end{enumerate}
-
-
-
-
-\section{Some technicalities: author list and standard LSST references} 
-
-Thank you Tim Jenness and Wil O'Mullane for helping with templates! 
-
-\subsection{The LSST LaTeX Classes}
-
-Please see the installation instructions\footnote{\url{https://lsst-texmf.lsst.io/install.html}} 
-for lsst-texmf. Once you have it installed, you should be able to compile your paper
-using make. 
-
-\subsection{How to handle author list?} 
-
-Authors come from the authors.yaml file --  find the author ids in the lsst-texmf/etc/authordb.yaml - use db2authors to get the authors and institutes from the db. 
-
-{\bf XXX Wil, the above is unclear: need more detail about how to use db2authors,
-what is its output and what to do with it...} 
-
-
-\subsection{How to handle LSST standard references?} 
-
-The papers should cite standard LSST references\footnote{See \url{https://github.com/lsst-pst/LSSTreferences}}, 
-where appropriate. For the usage, please see below.  These examples all use the ADS handle, unless they are 
-project docs then the use the project handle like LSE-17.
-
-All are on the lsst-texmf which you can get from \url{http://lsst-texmf.lsst.io}
-
-
-\subsubsection{LSST System and Science}
-
-The LSST system (brief overview of telescope, camera and data management subsystems),
-science drivers and science forecasts are described in:
-
-\begin{itemize}
-\item LSST Science Requirements Document: \cite{LPM-17}.
-\item LSST overview paper: \cite{2008arXiv0805.2366I}.
-\item LSST Science Book: \cite{abell2009lsst}.
-\end{itemize}
-%------------------------------------------------------------------------------
-
-
-\subsubsection{Simulations}
-
-The LSST simulations are described in a series of papers. Use of the LSST simulations should cite the LSST simulations overview paper \cite{2014SPIE.9150E..14C} and the specific simulation tools used:
-
-\begin{itemize}
-\item LSST Catalogs (CatSim): \cite{2014SPIE.9150E..14C}
-\item Feature-Based Scheduler: \cite{2018arXiv181004815N}
-\item Operations Simulator (OpSim): Scheduler \cite{2016SPIE.9910E..13D}, SOCS \cite{2016SPIE.9911E..25R}
-\item Metrics Analysis Framework (MAF): \cite{2014SPIE.9149E..0BJ}
-\item Image simulations (Phosim): \cite{2015ApJS..218...14P}
-\item Sky brightness model: \cite{2016SPIE.9910E..1AY}
-\item LSST Performance for NEO (or moving object) discovery: \cite{2018Icar..303..181J}
-\end{itemize}
-%------------------------------------------------------------------------------
-
-
-\subsubsection{Data Management}
-
-LSST data management system and the data products are described in:
-
-\begin{itemize}
-  \item The LSST Data Management System: \cite{2015arXiv151207914J}
-  \item Data Products Definition Document: \cite{LSE-163}
-\end{itemize}
- %------------------------------------------------------------------------------
-
-
-\subsubsection{Camera}
-
-\begin{itemize}
-   \item Design and development of the LSST camera: \cite{2010SPIE.7735E..0JK}
-\end{itemize}
-%------------------------------------------------------------------------------
-
-
-\subsubsection{Telescope and Site}
-
-\begin{itemize}
-   \item Telescope and site overview and status in 2014:  \cite{2014SPIE.9145E..1AG}
-\end{itemize}
-%------------------------------------------------------------------------------
-
-\subsubsection{System Engineering}
-
-\begin{itemize}
-   \item LSST systems engineering: \cite{2014SPIE.9150E..0MC}
-   \item System verification and validation: \cite{2014SPIE.9150E..0NS}
-\end{itemize}
-%
-
-
+\clearpage
