@@ -35,7 +35,35 @@ The Data Facilities support Rubin Data Management by providing the underlying in
 	\subsection{Embargo and Unembargo}
         \subsection{Processing Middleware: The Butler and BPS}
 	\subsection{Campaign Management}
-	(implications of facility setup on CM)
+		The term ``Campaign'' is defined in DMTN-181 as ``a data processing activity that accomplishes a particular goal'' (Lim et. al, in prep.). As such, Campaign Management refers to the process of, and the team which manages, such data processing efforts.
+		Each data release consists of a large-scale campaign, though much shorter Data Release Processing and Alert Processing campaigns are regularly performed for development, testing, and quality assurance purposes.
+		The Science Pipelines team has made extensive use of reprocessing campaigns of the HSC-RC2 and DC2 test-med-1 datasets in particular (``How DM uses precursor datasets and stories from HSC[sic]'', Yusra AlSayyad, Rubin Project Community Workshop, 10 August 2023).
+		The larger the campaign is, the more difficult the task of managing it.
+		While small campaigns can be managed easily with batch jobs, larger campaigns require data to be divided up into consistent groups, distributed to different data facilities depending on presence of data products and availability of compute resources, transferred to one location for global calibration steps, transferred back out for more parallelizable processing, and generally divided and re-combined over a number of different axes and processing steps.
+		These groups also must be tracked in terms of what happened during the processing; did it halt due to errors (and if so, what kind)? Did it finish successfully, and is it ready to be transferred, move on to the next step, or perhaps waiting for additional data to arrive?
+
+		Campaigns rely on multiple layers of infrastructure: nearly every layer described in this paper is relevant to the execution of a campaign, though some are more immediate than others.
+		Data products must be read from and ingested to a Butler; BPS is used to launch and manage running jobs, along with a workflow management system such as PanDA (cite) or HTCondor (also cite).
+		Quantum Graphs are the DAGs which actually represent Science Pipeline execution (citation), and can be used after-the-fact to track execution outcomes (``Using the Processing Summaries from the Quantum Provenance Graph'', Orion Eiger, Science Pipelines Team Meeting, 9 October 2024).
+		The Science Pipelines algorithms are another layer.
+		Problems can arise at any level, and with so many layers, troubleshooting can be incredibly complex.
+
+		Campaigns must be run end-to-end, and advance as quickly as possible in order to keep up with real-time data volumes of the type that LSSTCam will provide.
+		This is a difficult prospect in the scheme of an entire Data Release Production, and cannot be carried out by a person with batch scripts alone.
+
+		Campaign management is then, in essence, the orchestration of all of this.
+		Because the process is so complex, we have developed tooling called cm-service (how to cite a github repository?). cm-service defines a campaign as a ``graph of graphs'' (``Status of the Campaign Management Tools,'' Toby Jennings and Orion Eiger, Lyon Data Facilities Summit 2025) that includes Pipeline stages and other functions required for managing the processing of many groups of data.
+		cm-service runs in a Phalanx-deployed Kubernetes environment where it can access a database and one or more workflow management system, and provides an always-on loop which inspects active campaigns in order to update and evolve their states.
+		For data release productions, cm-service will manage splitting data into groups based on sharding dimensions, collecting and pausing campaigns at relevant points for data calibration and validation purposes, streamlining the process of troubleshooting and reporting, and setting nodes of campaign processing to appropriate status.
+		cm-service will need to be aware of data transport and locality so that processing can be orchestrated at the right place at the right time.
+		While these are difficult requirements, cm-service is ready to rise to the occasion and will be adopted pending design review (hopefully this line will be ``was adopted and is in use as of [date]'' at date of publication).
+
+		(implications of facility setup on CM)
+
+		Campaigns are carried out by two individuals, a \textit{pilot} and a \textit{co-pilot} who hand off responsibilities to each other fluidly.
+		Pilots are supported by the Campaign Management team for troubleshooting, reporting and monitoring, as well as the respective teams for layers of infrastructure and pipeline software as they become relevant.
+		Because carrying out a campaign is such an involved process, detailed monitoring efforts are also necessary to inform decisions in real-time.
+
 \section{Monitoring}
 	\subsection{Compute}
 	(utilization, memory, etc.)
